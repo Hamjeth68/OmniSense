@@ -1,0 +1,53 @@
+# File: k8s/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: omniverse-ai
+  labels:
+    app: omniverse-ai
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: omniverse-ai
+  template:
+    metadata:
+      labels:
+        app: omniverse-ai
+    spec:
+      containers:
+      - name: omniverse-ai
+        image: omniverse-ai:latest
+        ports:
+        - containerPort: 8000
+        resources:
+          limits:
+            cpu: "2"
+            memory: "4Gi"
+            nvidia.com/gpu: 2
+          requests:
+            cpu: "1"
+            memory: "2Gi"
+        env:
+        - name: MODEL_CACHE_DIR
+          value: "/models"
+        volumeMounts:
+        - name: model-storage
+          mountPath: "/models"
+      volumes:
+      - name: model-storage
+        persistentVolumeClaim:
+          claimName: model-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: omniverse-ai-service
+spec:
+  selector:
+    app: omniverse-ai
+  ports:
+    - protocol: TCP
+      port: 8000
+      targetPort: 8000
+  type: LoadBalancer
