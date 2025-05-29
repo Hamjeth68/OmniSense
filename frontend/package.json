@@ -41,6 +41,7 @@
     ]
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "^4.1.8"
+    "@tailwindcss/postcss": "^4.1.8",
+    "@types/react": "^19.1.6"
   }
 }
