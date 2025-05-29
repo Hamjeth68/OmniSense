@@ -3,7 +3,10 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 import logging
 import uvicorn
+import os
+from pathlib import Path
 
+# Import routers (we'll create these)
 from .routers import analyze
 from .utils.config import settings
 
@@ -22,7 +25,7 @@ app = FastAPI(
 # Add CORS middleware
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Configure appropriately for production
+    allow_origins=["http://localhost:3000", "http://127.0.0.1:3000"],  # Add your frontend URLs
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -37,13 +40,30 @@ async def root():
     return {
         "message": "Welcome to OmniSense AI",
         "version": "1.0.0",
-        "docs": "/docs"
+        "docs": "/docs",
+        "api_v1": settings.API_V1_STR
     }
 
 @app.get("/health")
 async def health():
     """Health check endpoint"""
-    return {"status": "healthy"}
+    return {"status": "healthy", "message": "OmniSense AI is running"}
+
+@app.on_event("startup")
+async def startup_event():
+    """Initialize application on startup"""
+    logger.info("Starting OmniSense AI...")
+    
+    # Create necessary directories
+    os.makedirs("uploads", exist_ok=True)
+    os.makedirs("model_cache", exist_ok=True)
+    
+    logger.info("Application startup complete")
+
+@app.on_event("shutdown")
+async def shutdown_event():
+    """Cleanup on shutdown"""
+    logger.info("Shutting down OmniSense AI...")
 
 if __name__ == "__main__":
     uvicorn.run(

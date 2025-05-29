@@ -28,6 +28,13 @@ class Settings(BaseSettings):
     ALLOWED_AUDIO_TYPES: list = ["audio/wav", "audio/mp3", "audio/mpeg"]
     ALLOWED_DOCUMENT_TYPES: list = ["application/pdf", "image/jpeg", "image/png"]
     
+    # Model Cache Configuration
+    MODEL_CACHE_DIR: str = "./model_cache"
+    
+    # Processing Configuration
+    MAX_IMAGE_SIZE: int = 1024
+    AUDIO_SAMPLE_RATE: int = 16000
+    
     class Config:
         case_sensitive = True
         env_file = ".env"
