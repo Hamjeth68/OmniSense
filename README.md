@@ -38,7 +38,6 @@
   - Celery message broker
   - Rate-limiting storage
 
-![Architecture Diagram](system_architecture_diagram.html)
 
 ## Prerequisites
 
@@ -179,4 +178,4 @@ Common issues:
 rm -rf ~/.cache/huggingface/
 ```
 
-For full implementation details and code samples, refer to the complete guide in the repository. The modular architecture allows easy extension with additional models and features.
+
