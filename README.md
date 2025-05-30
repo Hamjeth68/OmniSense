@@ -14,29 +14,29 @@
 ## System Architecture
 
 
-### Core Layers
-1. **Client Layer**: 
-   - Web Frontend (React + Three.js)
-   - Mobile Clients (iOS/Android)
+## System Components
 
-2. **Service Layer**:
-   - API Gateway (FastAPI)
-   - Processing Service (Multimodal Fusion Engine)
+### 1. Client Layer
+- **Frontend Interfaces** (Flutter):
+  - Cross-platform Desktop/Mobile/Web apps
+  - Unified UI for all user interactions
+  - Real-time updates via WebSockets
 
-3. **Data Layer**:
-   - PostgreSQL with pgvector
-   - Redis Cache
+### 2. API Gateway
+- **FastAPI**:
+  - RESTful endpoint management
+  - JWT Authentication & rate-limiting
+  - Request routing to microservices
+  - OpenAPI/Swagger documentation
 
-4. **ML Layer**:
-   - Model Servers (Triton)
-   - VQA, DocQA, Object Detection models
-   - Text processing models
-
-5. **Infrastructure**:
-   - Containerized with Docker
-   - Orchestrated with Kubernetes
-   - CI/CD with GitHub Actions
-   - IaC with Terraform
+### 3. Task Processing
+- **Celery Workers**:
+  - Distributed task queue (video/image/text/audio)
+  - Priority-based workload distribution
+- **Redis**:
+  - Cache layer for frequent queries
+  - Celery message broker
+  - Rate-limiting storage
 
 ![Architecture Diagram](system_architecture_diagram.html)
 
