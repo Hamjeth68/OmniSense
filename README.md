@@ -57,7 +57,7 @@
 ## Project Structure
 
 ```
-omnisense-ai/
+OmniSense/
 ├── backend/               # FastAPI backend
 │   ├── app/               # Application code
 │   │   ├── models/        # ML models
@@ -76,8 +76,8 @@ omnisense-ai/
 
 ### 1. Clone and Initialize Project
 ```bash
-git clone https://github.com/your-repo/omnisense-ai.git
-cd omnisense-ai
+git clone https://github.com/Hamjeth68/OmniSense.git
+cd OmniSense
 ```
 
 ### 2. Backend Setup
